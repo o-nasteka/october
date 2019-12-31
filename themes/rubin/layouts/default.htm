@@ -1,0 +1,11 @@
+<html>
+    <head>
+        <title>{{ this.page.title }}</title>
+        <link rel="stylesheet" href="{{ ['assets/styles.css','assets/font.css']|theme }}">
+    </head>
+    <body>
+        {% page %}
+        <hr>
+        {% partial 'footer' %}
+    </body>
+</html>
