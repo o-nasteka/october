@@ -1,4 +1,20 @@
-url = "/about"
+url = "/about/:filename?"
 layout = "default"
 ==
-{% content 'welcome.md' %}
+function onStart()
+{
+    $filename = $this->param('filename','welcome');
+
+    if($filename !== 'welcome'){
+        return Redirect::to('/404');
+    }
+    $this['filename'] = strtolower($filename);
+}
+/*
+function  onEnd()
+{
+    return 'Nope';
+}
+*/
+==
+{% content this.param.filename ~ 'welcome.md' %}

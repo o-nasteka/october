@@ -1,6 +1,9 @@
 title = "Homepage"
 url = "/"
 layout = "default"
+is_hidden = 0
+
+[CategoryList]
 ==
 <?
 function onStart()
@@ -9,4 +12,28 @@ function onStart()
 }
 ?>
 ==
-<h1>Hello {{ name }}</h1>
+{# Get CategoryCollection class object. Call tree() method to get category tree #}
+{% set obCategoryList = CategoryList.make().tree() %}
+
+{# Let's check that the list of categories is not empty #}
+{% if obCategoryList.isNotEmpty() %}
+<ul class="category-menu-wrapper">
+
+    {# Render top level of category tree #}
+    {% for obCategory in obCategoryList %}
+    <li data-id="{{ obCategory.id }}">{{ obCategory.name }}
+
+        {# Let's check that the list of child categories is not empty #}
+        {% if obCategory.children.isNotEmpty() %}
+        <ul class="category-child-menu-wrapper">
+
+            {# Render child categories #}
+            {% for obChildCategory in obCategory.children %}
+            <li><a href="#">{{ obChildCategory.name }}</a></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}

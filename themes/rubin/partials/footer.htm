@@ -1,1 +1,6 @@
-Thanks for visiting {{ name }}! Like us on Facebook
+Thanks for visiting {{ name }}! Like us on Facebook...
+
+<a href="{{ 'index'|page }}">Return home</a>, or
+<a href="{{ 'about'|page({
+    filename: 'welcome'
+}) }}">learn about us</a>

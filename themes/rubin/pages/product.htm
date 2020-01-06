@@ -1,0 +1,24 @@
+title = "Product"
+url = "/product/:slug"
+is_hidden = 0
+
+[ProductPage]
+slug = "{{ :slug }}"
+slug_required = 1
+==
+
+{# Get product item #}
+{% set obProduct = ProductPage.get() %}
+<div data-id="{{ obProduct.id }}">
+    <h1>{{ obProduct.name }}</h1>
+    {% if obProduct.preview_image is not empty %}
+    <img src="{{ obProduct.preview_image.path }}" title="{{ obProduct.preview_image.title }}" alt="{{ obProduct.preview_image.description }}">
+    {% endif %}
+    <span>Category: {{ obProduct.category.name }}</span>
+    <span>Brand: {{ obProduct.brand.name }}</span>
+    {% set obOffer = obProduct.offer.first() %}
+    {% if obOffer.isNotEmpty()%}
+    <span>Price: {{ obOffer.price }} {{ obOffer.currency }}</span>
+    {% endif %}
+    <div>{{ obProduct.description|raw }}</div>
+</div>
